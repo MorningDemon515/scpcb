@@ -7207,7 +7207,7 @@ Function DrawMenu()
 				SaveOptionsINI()
 				
 				AntiAlias Opt_AntiAlias
-				TextureLodBias TextureFloat#
+				;TextureLodBias TextureFloat#
 			EndIf
 			
 			Color 0,255,0
@@ -7309,7 +7309,7 @@ Function DrawMenu()
 						Case 4
 							TextureFloat# = -0.8
 					End Select
-					TextureLodBias TextureFloat
+					;TextureLodBias TextureFloat
 					If (MouseOn(x+270*MenuScale,y-6*MenuScale,100*MenuScale+14,20) And OnSliderID=0) Or OnSliderID=3
 						DrawOptionsTooltip(tx,ty,tw,th+100*MenuScale,"texquality")
 					EndIf
@@ -7855,8 +7855,6 @@ Function LoadEntities()
 	CameraFogFar# = GetINIFloat("options.ini", "options", "camera fog far")
 	StoredCameraFogFar# = CameraFogFar
 	
-	;TextureLodBias
-	
 	AmbientLightRoomTex% = CreateTexture(2,2,257)
 	TextureBlend AmbientLightRoomTex,5
 	SetBuffer(TextureBuffer(AmbientLightRoomTex))
@@ -8292,8 +8290,7 @@ Function LoadEntities()
 	OBJTunnel(6)=LoadRMesh("GFX\map\mt_generator.rmesh",Null)
 	HideEntity OBJTunnel(6)
 	
-	;TextureLodBias TextureBias
-	TextureLodBias TextureFloat#
+	;TextureLodBias TextureFloat#
 	;Devil Particle System
 	;ParticleEffect[] numbers:
 	;	0 - electric spark
@@ -11686,49 +11683,49 @@ Function ScaledMouseY%()
 End Function
 
 Function CatchErrors(location$)
-	Local errStr$ = ErrorLog()
-	Local errF%
-	If Len(errStr)>0 Then
-		If FileType(ErrorFile)=0 Then
-			errF = WriteFile(ErrorFile)
-			WriteLine errF,"An error occured in SCP - Containment Breach!"
-			WriteLine errF,"Version: "+VersionNumber
-			WriteLine errF,"Save compatible version: "+CompatibleNumber
-			WriteLine errF,"Date and time: "+CurrentDate()+" at "+CurrentTime()
-			WriteLine errF,"Total video memory (MB): "+TotalVidMem()/1024/1024
-			WriteLine errF,"Available video memory (MB): "+AvailVidMem()/1024/1024
-			GlobalMemoryStatus m.MEMORYSTATUS
-			WriteLine errF,"Global memory status: "+(m\dwAvailPhys%/1024/1024)+" MB/"+(m\dwTotalPhys%/1024/1024)+" MB ("+(m\dwAvailPhys%/1024)+" KB/"+(m\dwTotalPhys%/1024)+" KB)"
-			WriteLine errF,"Triangles rendered: "+CurrTrisAmount
-			WriteLine errF,"Active textures: "+ActiveTextures()
-			WriteLine errF,""
-			WriteLine errF,"Error(s):"
-		Else
-			Local canwriteError% = True
-			errF = OpenFile(ErrorFile)
-			While (Not Eof(errF))
-				Local l$ = ReadLine(errF)
-				If Left(l,Len(location))=location
-					canwriteError = False
-					Exit
-				EndIf
-			Wend
-			If canwriteError
-				SeekFile errF,FileSize(ErrorFile)
-			EndIf
-		EndIf
-		If canwriteError
-			WriteLine errF,location+" ***************"
-			While Len(errStr)>0
-				WriteLine errF,errStr
-				DebugLog errStr
-				errStr = ErrorLog()
-			Wend
-		EndIf
-		Msg = "Blitz3D Error! Details in "+Chr(34)+ErrorFile+Chr(34)
-		MsgTimer = 20*70
-		CloseFile errF
-	EndIf
+	;Local errStr$ = ErrorLog()
+	;Local errF%
+	;If Len(errStr)>0 Then
+	;	If FileType(ErrorFile)=0 Then
+	;		errF = WriteFile(ErrorFile)
+	;		WriteLine errF,"An error occured in SCP - Containment Breach!"
+	;		WriteLine errF,"Version: "+VersionNumber
+	;		WriteLine errF,"Save compatible version: "+CompatibleNumber
+	;		WriteLine errF,"Date and time: "+CurrentDate()+" at "+CurrentTime()
+	;		WriteLine errF,"Total video memory (MB): "+TotalVidMem()/1024/1024
+	;		WriteLine errF,"Available video memory (MB): "+AvailVidMem()/1024/1024
+	;		GlobalMemoryStatus m.MEMORYSTATUS
+	;		WriteLine errF,"Global memory status: "+(m\dwAvailPhys%/1024/1024)+" MB/"+(m\dwTotalPhys%/1024/1024)+" MB ("+(m\dwAvailPhys%/1024)+" KB/"+(m\dwTotalPhys%/1024)+" KB)"
+	;		WriteLine errF,"Triangles rendered: "+CurrTrisAmount
+	;		WriteLine errF,"Active textures: "+ActiveTextures()
+	;		WriteLine errF,""
+	;		WriteLine errF,"Error(s):"
+	;	Else
+	;		Local canwriteError% = True
+	;		errF = OpenFile(ErrorFile)
+	;		While (Not Eof(errF))
+	;			Local l$ = ReadLine(errF)
+	;			If Left(l,Len(location))=location
+	;				canwriteError = False
+	;				Exit
+	;			EndIf
+	;		Wend
+	;		If canwriteError
+	;			SeekFile errF,FileSize(ErrorFile)
+	;		EndIf
+	;	EndIf
+	;	If canwriteError
+	;		WriteLine errF,location+" ***************"
+	;		While Len(errStr)>0
+	;			WriteLine errF,errStr
+	;			DebugLog errStr
+	;			errStr = ErrorLog()
+	;		Wend
+	;	EndIf
+	;	Msg = "Blitz3D Error! Details in "+Chr(34)+ErrorFile+Chr(34)
+	;	MsgTimer = 20*70
+	;	CloseFile errF
+	;EndIf
 End Function
 
 Function Create3DIcon(width%,height%,modelpath$,modelX#=0,modelY#=0,modelZ#=0,modelPitch#=0,modelYaw#=0,modelRoll#=0,modelscaleX#=1,modelscaleY#=1,modelscaleZ#=1,withfog%=False)

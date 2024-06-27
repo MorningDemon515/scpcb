@@ -679,7 +679,7 @@ Function UpdateMainMenu()
 						Case 4
 							TextureFloat# = -0.8
 					End Select
-					TextureLodBias TextureFloat
+					;TextureLodBias TextureFloat
 					If (MouseOn(x+310*MenuScale,y-6*MenuScale,150*MenuScale+14,20) And OnSliderID=0) Or OnSliderID=3
 						DrawOptionsTooltip(tx,ty,tw,th+100*MenuScale,"texquality")
 					EndIf
