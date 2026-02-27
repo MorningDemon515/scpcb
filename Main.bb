@@ -16,6 +16,7 @@ If Len(InitErrorStr)>0 Then
 	RuntimeError "The following DLLs were not found in the game directory:"+Chr(13)+Chr(10)+Chr(13)+Chr(10)+InitErrorStr
 EndIf
 
+Include "SpeedTextNative.bb"
 Include "FMod.bb"
 
 Include "StrictLoads.bb"
@@ -185,6 +186,7 @@ EndIf
 Global MenuScale# = (GraphicHeight / 1024.0)
 
 SetBuffer(BackBuffer())
+TextInitialize BackBuffer()
 
 Global CurTime%, PrevTime%, LoopDelay%, FPSfactor#, FPSfactor2#, PrevFPSFactor#
 Local CheckFPS%, ElapsedLoops%, FPS%, ElapsedTime#
@@ -227,15 +229,15 @@ InitAAFont()
 ;don't match their "internal name" (i.e. their display name in applications
 ;like Word and such). As a workaround, I moved the files and renamed them so they
 ;can load without FastText.
-Font1% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(19 * (GraphicHeight / 1024.0)), 0,0,0)
-Font2% = AALoadFont("GFX\font\courbd\Courier New.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
-Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
-Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
-Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
+Font1% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(19 * (GraphicHeight / 1024.0)), 0,0,0, 2, "Courier New")
+Font2% = AALoadFont("GFX\font\courbd\Courier New.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0, 2, "Courier New")
+Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0, 2, "DS-Digital")
+Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0, 2, "DS-Digital")
+Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0, 2, "Journal")
 
 Global CreditsFont%,CreditsFont2%
 
-ConsoleFont% = AALoadFont("Blitz", Int(20 * (GraphicHeight / 1024.0)), 0,0,0,1)
+ConsoleFont% = AALoadFont("", Int(20 * (GraphicHeight / 1024.0)), 0,0,0,1, "Blitz")
 
 AASetFont Font2
 
@@ -3359,6 +3361,8 @@ Repeat
 	EndIf
 Forever
 
+TextDeinitialize
+
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
 ;----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -3881,8 +3885,8 @@ Function InitCredits()
 	Local file% = OpenFile("Credits.txt")
 	Local l$
 	
-	CreditsFont% = LoadFont_Strict("GFX\font\cour\Courier New.ttf", Int(21 * (GraphicHeight / 1024.0)), 0,0,0)
-	CreditsFont2% = LoadFont_Strict("GFX\font\courbd\Courier New.ttf", Int(35 * (GraphicHeight / 1024.0)), 0,0,0)
+	CreditsFont% = LoadFont_Strict("GFX\font\cour\Courier New.ttf", Int(21 * (GraphicHeight / 1024.0)), 0,0,0,"Courier New")
+	CreditsFont2% = LoadFont_Strict("GFX\font\courbd\Courier New.ttf", Int(35 * (GraphicHeight / 1024.0)), 0,0,0, "Courier New")
 	
 	If CreditsScreen = 0
 		CreditsScreen = LoadImage_Strict("GFX\creditsscreen.pt")
@@ -7568,12 +7572,12 @@ Function DrawMenu()
 							;Next
 						EndIf
 						InitAAFont()
-						Font1% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font2% = AALoadFont("GFX\font\courbd\Courier New.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
-						ConsoleFont% = AALoadFont("Blitz", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,1)
+						Font1% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0, 2, "Courier New")
+						Font2% = AALoadFont("GFX\font\courbd\Courier New.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0, 2, "Courier New")
+						Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0, 2, "DS-Digital")
+						Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0, 2, "DS-Digital")
+						Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0, 2, "Journal")
+						ConsoleFont% = AALoadFont("", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,1, "Blitz")
 						;ReloadAAFont()
 						AATextEnable_Prev% = AATextEnable
 					EndIf

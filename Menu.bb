@@ -210,6 +210,7 @@ Function UpdateMainMenu()
 						;FMOD_StopStream(CurrMusicStream)
 						FSOUND_Stream_Stop(CurrMusicStream)
 						;FSOUND_Close()
+						TextDeinitialize
 						End
 					EndIf
 			End Select
@@ -1003,12 +1004,12 @@ Function UpdateMainMenu()
 							;Next
 						EndIf
 						InitAAFont()
-						Font1% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font2% = AALoadFont("GFX\font\courbd\Courier New.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0)
-						Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0)
-						ConsoleFont% = AALoadFont("Blitz", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,1)
+						Font1% = AALoadFont("GFX\font\cour\Courier New.ttf", Int(18 * (GraphicHeight / 1024.0)), 0,0,0,2,"Courier New")
+						Font2% = AALoadFont("GFX\font\courbd\Courier New.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0,2, "Courier New")
+						Font3% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,2, "DS-Digital")
+						Font4% = AALoadFont("GFX\font\DS-DIGI\DS-Digital.ttf", Int(60 * (GraphicHeight / 1024.0)), 0,0,0,2, "DS-Digital")
+						Font5% = AALoadFont("GFX\font\Journal\Journal.ttf", Int(58 * (GraphicHeight / 1024.0)), 0,0,0,2, "Journal")
+						ConsoleFont% = AALoadFont("", Int(22 * (GraphicHeight / 1024.0)), 0,0,0,1, "Blitz")
 						;ReloadAAFont()
 						AATextEnable_Prev% = AATextEnable
 					EndIf
@@ -1129,11 +1130,12 @@ Function UpdateLauncher()
 	;InitExt
 	
 	SetBuffer BackBuffer()
+	TextInitialize BackBuffer()
 	
 	RealGraphicWidth = GraphicWidth
 	RealGraphicHeight = GraphicHeight
 	
-	Font1 = LoadFont_Strict("GFX\font\cour\Courier New.ttf", 18, 0,0,0)
+	Font1 = LoadFont_Strict("GFX\font\cour\Courier New.ttf", 18, 0,0,0, "Courier New")
 	SetFont Font1
 	MenuWhite = LoadImage_Strict("GFX\menu\menuwhite.jpg")
 	MenuBlack = LoadImage_Strict("GFX\menu\menublack.jpg")	
@@ -1277,10 +1279,14 @@ Function UpdateLauncher()
 			GraphicHeight = GfxModeHeights(SelectedGFXMode)
 			RealGraphicWidth = GraphicWidth
 			RealGraphicHeight = GraphicHeight
+			TextDeinitialize
 			Exit
 		EndIf
 		
-		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50, 100, 30, "EXIT", False, False, False) Then End
+		If DrawButton(LauncherWidth - 30 - 90, LauncherHeight - 50, 100, 30, "EXIT", False, False, False) Then 
+		    TextDeinitialize 
+			End
+		EndIf
 		Flip
 	Forever
 	
@@ -1312,7 +1318,7 @@ Function UpdateLauncher()
 	Else
 		PutINIValue(OptionFile, "options", "check for updates", "false")
 	EndIf
-	
+	TextDeinitialize
 End Function
 
 
