@@ -28,18 +28,18 @@ Function LoadMaterials(file$)
 			mat\name = Lower(TemporaryString)
 			
 			If BumpEnabled Then
-				StrTemp = GetINIString(file, TemporaryString, "bump")
-				If StrTemp <> "" Then 
-					mat\Bump =  LoadTexture_Strict(StrTemp)
+				;StrTemp = GetINIString(file, TemporaryString, "bump")
+				;If StrTemp <> "" Then 
+				;	mat\Bump =  LoadTexture_Strict(StrTemp)
 					
-					TextureBlend mat\Bump, 6
-					TextureBumpEnvMat mat\Bump,0,0,-0.012
-					TextureBumpEnvMat mat\Bump,0,1,-0.012
-					TextureBumpEnvMat mat\Bump,1,0,0.012
-					TextureBumpEnvMat mat\Bump,1,1,0.012
-					TextureBumpEnvOffset mat\Bump,0.5
-					TextureBumpEnvScale mat\Bump,1.0				
-				EndIf
+				;	TextureBlend mat\Bump, 6
+				;	TextureBumpEnvMat mat\Bump,0,0,-0.012
+				;	TextureBumpEnvMat mat\Bump,0,1,-0.012
+				;	TextureBumpEnvMat mat\Bump,1,0,0.012
+				;	TextureBumpEnvMat mat\Bump,1,1,0.012
+				;	TextureBumpEnvOffset mat\Bump,0.5
+				;	TextureBumpEnvScale mat\Bump,1.0				
+				;EndIf
 			EndIf
 			
 			mat\StepSound = (GetINIInt(file, TemporaryString, "stepsound")+1)
@@ -298,19 +298,19 @@ Function AddTextureToCache(texture%)
 		tc.Materials=New Materials
 		tc\name=StripPath(TextureName(texture))
 		If BumpEnabled Then
-			Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
-			If temp<>"" Then
-				tc\Bump=LoadTexture_Strict(temp)
-				TextureBlend tc\Bump,6
-				TextureBumpEnvMat tc\Bump,0,0,-0.012
-				TextureBumpEnvMat tc\Bump,0,1,-0.012
-				TextureBumpEnvMat tc\Bump,1,0,0.012
-				TextureBumpEnvMat tc\Bump,1,1,0.012
-				TextureBumpEnvOffset tc\Bump,0.5
-				TextureBumpEnvScale tc\Bump,1.0
-			Else
-				tc\Bump=0
-			EndIf
+			;Local temp$=GetINIString("Data\materials.ini",tc\name,"bump")
+			;If temp<>"" Then
+			;	tc\Bump=LoadTexture_Strict(temp)
+			;	TextureBlend tc\Bump,6
+			;	TextureBumpEnvMat tc\Bump,0,0,-0.012
+			;	TextureBumpEnvMat tc\Bump,0,1,-0.012
+			;	TextureBumpEnvMat tc\Bump,1,0,0.012
+			;	TextureBumpEnvMat tc\Bump,1,1,0.012
+			;	TextureBumpEnvOffset tc\Bump,0.5
+			;	TextureBumpEnvScale tc\Bump,1.0
+			;Else
+			;	tc\Bump=0
+			;EndIf
 		EndIf
 		tc\Diff=0
 	EndIf
@@ -826,7 +826,7 @@ Const max_deviation_distance% = 3
 Const return_chance% = 27
 Const center = 5 ;(gridsize-1) / 2
 
-Include "Drawportals.bb"
+Include "Source/Drawportals.bb"
 
 Type Forest
 	Field TileMesh%[6]
@@ -7900,7 +7900,7 @@ End Function
 
 
 
-Include "Skybox.bb"
+Include "Source/Skybox.bb"
 
 Global UpdateRoomLightsTimer# = 0.0
 
